@@ -1,6 +1,7 @@
 ﻿using EFManyToMany.Models.ORM;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFManyToMany.Controllers
 {
@@ -18,7 +19,8 @@ namespace EFManyToMany.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.WebUsers);
+            var webUser = _context.WebUsers.Include(x => x.Orders).ToList();
+            return Ok(webUser);
         }
 
 
